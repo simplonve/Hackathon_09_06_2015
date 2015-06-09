@@ -29,7 +29,7 @@ def select_perso():
     if perso == 1:
         path_image_perso = 'characteres/carremaster.png'
     elif perso == 2:
-        path_image_perso = 'characteres/cerclemaster.png'
+        path_image_perso = 'characteres/cerclemasterok.png'
     elif perso == 3:
         path_image_perso = 'characteres/trianglemaster.png'
     elif perso == 4:
