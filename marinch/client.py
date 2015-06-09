@@ -10,6 +10,7 @@ PORT = 60000
 
 def main(conn):
     image_arriere_plan = pygame.image.load("data/images/maps/mapessai.png")
+    caisse_vodka = pygame.image.load("data/images/objects/vodka.png")
 
     def load_image(name, colorkey=None):
         fullname = os.path.join('data', 'images')
@@ -109,46 +110,38 @@ def main(conn):
 
     # Holds the level layout in a list of strings.
     level = [
-    "                                                               W",
-    "                                                               W",
-    "                                                               W",
-    "                                                               W",
-    "                       WWW       WWW         WWW           WWW W",
-    "                       WWW     WWWWW       WWWWW           WWWWW",
-    "                       WWW     WWWWW       WWWWW           WWWWW",
-    "W           C                                                  W",
     "W                                                              W",
     "W                                                              W",
-    "W                    WW    WW                                  W",
-    "W                    WW    WW WW     WW             WW         W",
-    "W                    WW    WW WW     WW             WW         W",
+    "W                    CC    CC                                  W",
+    "W                    CC    CC CC     CC             CC         W",
+    "W                    CC    CC CC     CC             CC         W",
     "W                                                              W",
     "W                                                              W",
-    "W                                      WW                      W",
-    "W                                      WW                      W",
-    "WWWWWWWWWWWWWWWWWWWW     W     wWWWWWWWWWWWWWWWWWWWWWWW        W",
-    "W                                   WWW                        W",
-    "W                                   WWW                        W",
+    "W                                      CC                      W",
+    "W                                      CC                      W",
+    "WWWWWWWWWWWWWWWWWWWW     C     wWWWWWWWWWWWWWWWWWWWWWWW        W",
+    "W                                   CCC                        W",
+    "W                                   CCC                        W",
     "W                                                              W",
     "W                                                              W",
     "W                                                              W",
     "W                                                              W",
-    "W       WWW             WWW                             WWW    W",
-    "W     WWWWW       WW    WWW   WW                  WWW   WWW    W",
-    "W     WWWWW       WW    WWW   WW                  WWW   WWW    W",
+    "W       CCC             CCC                             CCC    W",
+    "W     CCCCC       CC    CCC   CC                  CCC   CCC    W",
+    "W     CCCCC       CC    CCC   CC                  CCC   CCC    W",
     "W                                                              W",
     "W                                                              W",
-    "W          WW             ww                                   W",
-    "W          WW             WW                                   W",
+    "W          CC             CC                                   W",
+    "W          CC             CC                                   W",
     "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW      WWWWWWWWWWWWWWWW     W",
     "W                                                              W",
     "W                                                              W",
     "W                                                              W",
-    "W                   WW                                         W",
-    "W                   WW                                         W",
-    "W   WWW    WW    WWW         WWW    WW    WWW   WW   WWW   WW  W",
-    "W   WWW    WW    WWW         WWW    WW    WWW   WW   WWW   WW  W",
-    "W   WWW          WWW         WWW          WWW        WWW       W",
+    "W                   CC                                         W",
+    "W                   CC                                         W",
+    "W   CCC    CC    CCC         CCC    CC    CCC   CC   CCC   CC  W",
+    "W   CCC    CC    CCC         CCC    CC    CCC   CC   CCC   CC  W",
+    "W   CCC          CCC         CCC          CCC        CCC       W",
     "W                                                              W",
     "W                                                              W",
     "W                                                              W",
@@ -167,7 +160,7 @@ def main(conn):
             if col == "E":
                 end_rect = pygame.Rect(x, y, 16, 16)
             if col == "C":
-                Caisse((x, y))
+                caisse_rect = pygame.Rect(x, y, 16, 16)
             x += 16
         y += 16
         x = 0
@@ -203,9 +196,9 @@ def main(conn):
         screen.fill((0, 0, 0))
         screen.blit(image_arriere_plan, (0, 0))
         for wall in walls:
-            print(wall)
             pygame.draw.rect(screen, (255, 255, 255), wall.rect)
         pygame.draw.rect(screen, (255, 0, 0), end_rect)
+        screen.blit(caisse_vodka, caisse_rect)
         screen.blit(player.perso, player.rect)
         pygame.display.flip()
 

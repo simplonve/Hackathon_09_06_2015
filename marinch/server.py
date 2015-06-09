@@ -17,7 +17,7 @@ class ThreadClient(threading.Thread):
             msgClient = self.connexion.recv(1024)
             if msgClient.upper() == "FIN" or msgClient =="":
                 break
-            message = "%s> %s" % (nom, msgClient[6:len(msgClient)-4]])
+            message = "%s> %s" % (nom, msgClient[6:len(msgClient)-4])
             print message
             for cle in conn_client:
                 if cle != nom:
