@@ -1,0 +1,30 @@
+Mathieu/Paul : map/level design
+Romain : interface client ? map (svg) a définir + integration a la base du jeu
+Ethan : partie reseau (client/serveur) + integration base du jeu
+
+general :
+1 - definir une resolution 1280/720 ?
+2 - definir taille map (cb de x vu user) en gros
+3 - 
+
+romain : 
+1 - block map svg (sol, mur...)
+('petit' block or 'section'.taille == vu_user or (just surface + color (ex marron == sol) == make it run))
+2 - creation accueil (av nom jeu + msg('bienvenue') + bouton(s))
+
+mathieu/paul :
+1 - lvl design (en gros)
+2 - ???
+
+ethan :
+1 - creation parti reseau (client - server)
+2 - integration pygame -> parti reseau
+
+
++ si temp :
+creation + placement piege (disparition or chute block...)
+creation + placement objet (arbre, caisse...)
+creation + mise en place boost ?
+creation + placement horloge + recompense (1er, 2em...)
+
+
