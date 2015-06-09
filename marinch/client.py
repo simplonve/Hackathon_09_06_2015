@@ -37,7 +37,6 @@ def main(conn):
             path_image_perso = 'characteres/trianglemaster.png'
         elif perso == 4:
             path_image_perso = 'characteres/croixmaster.png'
-        connexion.send(path_image_perso)
         return path_image_perso
 
     class Player(object):
@@ -58,6 +57,12 @@ def main(conn):
             # Move the rect
             self.rect.x += dx
             self.rect.y += dy
+            x = self.rect.x
+            x = str(x)
+            y = self.rect.y
+            y = str(y)
+            position = 'pos : ' + x + ' ' + y
+            connexion.send(position)
 
             # If you collide with a wall, move out based on velocity
             for wall in walls:
@@ -205,9 +210,11 @@ class ThreadReception(threading.Thread):
     def run(self):
         while 1:
             message_recu = self.connexion.recv(1024)
-            print "*" + message_recu + "*"
+            print message_recu
             if message_recu =='' or message_recu.upper() == "FIN":
                 break
+            elif message_recu[:5] == 'pos :':
+
         th_E._Thread__stop()
         print "Client arrêté. Connexion interrompue."
         self.connexion.close()
