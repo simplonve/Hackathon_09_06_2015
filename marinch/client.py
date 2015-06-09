@@ -2,8 +2,8 @@
 # -*- coding:utf-8 -*-
 import socket, sys, os, threading
 
-host = os.environ.get('RDB_HOST') or '192.168.1.34'
-port = 40000
+HOST = os.environ.get('RDB_HOST') or '10.42.0.1'
+PORT = 40000
 
 class ThreadReception(threading.Thread):
     """objet thread gérant la réception des messages"""
@@ -34,7 +34,7 @@ class ThreadEmission(threading.Thread):
 
 connexion = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
-    connexion.connect((host, port))
+    connexion.connect((HOST, PORT))
 except socket.error:
     print "La connexion a échoué."
     sys.exit()

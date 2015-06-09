@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 import socket, sys, os, threading
 
-HOST = os.environ.get('RDB_HOST') or '192.168.1.34'
+HOST = os.environ.get('RDB_HOST') or '10.42.0.1'
 PORT = 40000
 
 class ThreadClient(threading.Thread):
