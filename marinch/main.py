@@ -6,7 +6,7 @@ import pygame.gfxdraw
 from pygame.locals import *
 
 pygame.init()
-image_arriere_plan = pygame.image.load("data/images/accueil/decormaster.png")
+image_arriere_plan = pygame.image.load("data/images/accueil/accueilmaster.png")
 
 pygame.display.set_caption('MarInch')
 
@@ -82,7 +82,6 @@ class main:
         """Load the sprites that we need"""
         self.perso = perso()
         self.perso_sprites = pygame.sprite.RenderPlain((self.perso))
-
 
 class perso(pygame.sprite.Sprite):
     """This is our perso that will move around the screen"""

@@ -6,6 +6,8 @@ import pygame
 import pygame.gfxdraw
 from pygame.locals import *
 
+image_arriere_plan = pygame.image.load("data/images/maps/mapessai.png")
+
 def load_image(name, colorkey=None):
     fullname = os.path.join('data', 'images')
     fullname = os.path.join(fullname, name)
@@ -65,7 +67,7 @@ os.environ["SDL_VIDEO_CENTERED"] = "1"
 pygame.init()
 
 # Set up the display
-pygame.display.set_caption("Get to the red square!")
+pygame.display.set_caption("MarInch")
 screen = pygame.display.set_mode((1024, 720))
 
 clock = pygame.time.Clock()
@@ -112,7 +114,7 @@ level = [
 "                                                             ",
 "                                                             ",
 "                                                             ",
-"    WWW    WWWWWWWWWWWWWWWWWWWWW       WWWWWWWWWWWWWWWWW",
+"    WWW    WWWWWWWWWWWWWWWWWWWWW       WWWWWWWWWWWWWWWWWWWWWW",
 "                                                             ",
 "                                                             ",
 "                                                             ",
@@ -162,6 +164,7 @@ while running:
 
     # Draw the scene
     screen.fill((0, 0, 0))
+    screen.blit(image_arriere_plan, (0, 0))
     for wall in walls:
         pygame.draw.rect(screen, (255, 255, 255), wall.rect)
     pygame.draw.rect(screen, (255, 0, 0), end_rect)

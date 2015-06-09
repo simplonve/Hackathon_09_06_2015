@@ -35,7 +35,7 @@ level = [
 "                                                             ",
 "                                                             ",
 "                                                             ",
-"    WWW    WWWWWWWWWWWWWWWWWWWWW       WWWWWWWWWWWWWWWWW",
+"    WWW    WWWWWWWWWWWWWWWWWWWWW       WWWWWWWWWWWWWWWWWWWWWW",
 "                                                             ",
 "                                                             ",
 "                                                             ",
