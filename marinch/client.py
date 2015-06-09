@@ -30,13 +30,13 @@ def main(conn):
         path_image_perso = ''
         perso = input('choisisez un perso :')
         if perso == 1:
-            path_image_perso = 'characteres/carremaster.png'
+            path_image_perso = 'characteres/carre.png'
         elif perso == 2:
-         path_image_perso = 'characteres/cerclemasterok.png'
+         path_image_perso = 'characteres/cercle.png'
         elif perso == 3:
-            path_image_perso = 'characteres/trianglemaster.png'
+            path_image_perso = 'characteres/triangle.png'
         elif perso == 4:
-            path_image_perso = 'characteres/croixmaster.png'
+            path_image_perso = 'characteres/croix.png'
         return path_image_perso
 
     class Player(object):
@@ -111,7 +111,7 @@ def main(conn):
     "                       WWW       WWW         WWW           WWW W",
     "                       WWW     WWWWW       WWWWW           WWWWW",
     "                       WWW     WWWWW       WWWWW           WWWWW",
-    "W                                                              W",
+    "W           W                                                  W",
     "W                                                              W",
     "W                                                              W",
     "W                    WW    WW                                  W",
@@ -213,8 +213,8 @@ class ThreadReception(threading.Thread):
             print message_recu
             if message_recu =='' or message_recu.upper() == "FIN":
                 break
-            elif message_recu[:5] == 'pos :':
-
+            elif message_recu[:5] == ' pos ':
+                print('pos')
         th_E._Thread__stop()
         print "Client arrêté. Connexion interrompue."
         self.connexion.close()
