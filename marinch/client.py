@@ -6,9 +6,9 @@ import pygame.gfxdraw
 from pygame.locals import *
 
 HOST = os.environ.get('RDB_HOST') or '10.42.0.1'
-PORT = 40000
+PORT = 60000
 
-def main():
+def main(conn):
     image_arriere_plan = pygame.image.load("data/images/maps/mapessai.png")
 
     def load_image(name, colorkey=None):
@@ -163,9 +163,11 @@ def main():
         clock.tick(60)
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
-                running = False
+                connexion.send('FIN')
+                quit()
             if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
-                running = False
+                connexion.send('FIN')
+                quit()
 
         # Move the player if an arrow key is pressed
         key = pygame.key.get_pressed()
@@ -226,7 +228,8 @@ class ThreadJeu(threading.Thread):
 
     def run(self):
         while 1:
-            main()
+            main(self.connexion)
+        self.connexion.close()
 
 connexion = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
@@ -237,6 +240,8 @@ except socket.error:
 print "Connexion établie avec le serveur."
 
 th_E = ThreadEmission(connexion)
+th_J = ThreadJeu(connexion)
 th_R = ThreadReception(connexion)
 th_E.start()
+th_J.start()
 th_R.start()

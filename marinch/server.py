@@ -3,7 +3,7 @@
 import socket, sys, os, threading
 
 HOST = os.environ.get('RDB_HOST') or '10.42.0.1'
-PORT = 40000
+PORT = 60000
 
 class ThreadClient(threading.Thread):
     '''dérivation d'un objet thread pour gérer la connexion avec un client'''
