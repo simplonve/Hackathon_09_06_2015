@@ -33,8 +33,6 @@ def load_image(name, colorkey=None):
         image.set_colorkey(colorkey, RLEACCEL)
     return image, image.get_rect()
 
-
-
 class main:
     """The Main PyMan Class - This class handles the main 
     initialization and creating of the Game."""
@@ -119,7 +117,6 @@ if __name__ == "__main__":
     MainWindow = main()
     MainWindow.MainLoop()
 
-
 fonctionnement = True
 
 while fonctionnement:
@@ -129,3 +126,5 @@ while fonctionnement:
         elif event.type == KEYDOWN:
             if event.key == K_ESCAPE:
                 fonctionnement = False
+
+
