@@ -1,18 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 import random
-import pygame, os
+import pygame, os, sys
 import pygame.gfxdraw
 from pygame.locals import *
-
-width = 1024
-height = 720
 
 pygame.init()
 image_arriere_plan = pygame.image.load("data/images/accueil/decormaster.png")
 
 pygame.display.set_caption('MarInch')
-
 
 def select_perso():
     perso = raw_input('choisisez un perso :')
@@ -21,7 +17,6 @@ def select_perso():
     if perso == 3: perso = carre
     if perso == 4: perso = rond
     return perso
-
 
 def load_image(name, colorkey=None):
     fullname = os.path.join('data', 'images')
@@ -40,11 +35,11 @@ def load_image(name, colorkey=None):
 
 
 
-class PyManMain:
+class main:
     """The Main PyMan Class - This class handles the main 
     initialization and creating of the Game."""
     
-    def __init__(self, width=640,height=480):
+    def __init__(self, width=1024,height=720):
         """Initialize"""
         """Initialize PyGame"""
         pygame.init()
@@ -62,12 +57,12 @@ class PyManMain:
         self.LoadSprites();
         """tell pygame to keep sending up keystrokes when they are
         held down"""
-        pygame.key.set_repeat(500, 30)
+        pygame.key.set_repeat(10, 10)
         
         """Create the fenetre"""
         self.fenetre = pygame.Surface(self.screen.get_size())
         self.fenetre = self.fenetre.convert()
-        self.fenetre.fill((0,0,0))
+        self.fenetre.blit(image_arriere_plan, (0, 0))
         
         while 1:
             for event in pygame.event.get():
@@ -96,7 +91,7 @@ class perso(pygame.sprite.Sprite):
 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image, self.rect = load_image('characteres/trianglemaster.png',-1)
+        self.image, self.rect = load_image('characteres/croixmaster.png',-1)
         """Set the number of Pixels to move each time"""
         #saut de pixel
         self.x_dist = 10
@@ -116,11 +111,12 @@ class perso(pygame.sprite.Sprite):
             yMove = -self.y_dist
         elif (key == K_DOWN):
             yMove = self.y_dist
+
         #self.rect = self.rect.move(xMove,yMove);
-        self.rect.move_ip(xMove,yMove);
+        self.rect.move_ip(xMove,yMove)
 
 if __name__ == "__main__":
-    MainWindow = PyManMain()
+    MainWindow = main()
     MainWindow.MainLoop()
 
 
