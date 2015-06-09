@@ -29,29 +29,6 @@
   cartes_restantes -= 1
   carte_tiree = rand(cartes_restantes)
   }
-  #resultat_joueurs
-  score_joueur_1 = [0]
-  joueur_1 = flop
-  joueur_1 << cartes_joueurs[0] << cartes_joueurs[1]
-  joueur_1.sort!
-  joueur_1_valeur = []
-  joueur_1_couleur = []
-  
-  (0..4).each {|carte| 
-  joueur_1_valeur <<  joueur_1[carte][0]
-  joueur_1_couleur << joueur_1[carte][1]
-  }
-  
-  (0..4).each {|carte| 
-  joueur_1_valeur.count(joueur_1_valeur[carte]) == 2 ? score_joueur_1 << "Paire de #{joueur_1_valeur[carte]}" : ""
-  joueur_1_valeur.count(joueur_1_valeur[carte]) == 3 ? score_joueur_1 << "Brelan de #{joueur_1_valeur[carte]}" : ""
-  joueur_1_valeur.count(joueur_1_valeur[carte]) == 4 ? score_joueur_1 << "Carre de #{joueur_1_valeur[carte]}" : ""
-  }
-  joueur_1_valeur[0] == (joueur_1_valeur[1] -1) and  joueur_1_valeur[0] == (joueur_1_valeur[2] -2) and  joueur_1_valeur[0] == (joueur_1_valeur[3] -3) and  joueur_1_valeur[0] == (joueur_1_valeur[4] -4) ? score_joueur_1 << "Suite" : "" 
-  
-  (0..4).each {|carte| 
-  joueur_1_couleur.count(joueur_1_couleur[carte]) > 4 ? score_joueur_1 << "Couleur a #{joueur_1_couleur[carte]}" : ""
-  }
   %>
 	<div class="container">
 		<div class="row">
