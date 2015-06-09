@@ -1,0 +1,19 @@
+.image_carte {
+	height: 9em;
+	width: 5em;
+}
+
+.container {
+	width: 90%;
+    background-color: #cccccc;
+} 
+
+.table {
+  padding: 2%;
+}
+
+.logo {
+	height: 50px:
+	width: 50px;
+	padding: 10%;
+}

@@ -1,0 +1,94 @@
+<html>
+<head>
+	<title>Jeu de poker</title>
+	<%= stylesheet_link_tag "stylesheets/bootstrap" %>
+	<%= stylesheet_link_tag "stylesheets/style" %>
+</head>
+<body>
+<%
+  #creation paquet
+  paquet = []
+  couleur_hash = {0 => "coeur", 1 => "carreau", 2 => "pique", 3 => "trefle"}
+  (0..3).each {|couleur| (2..14).each {|carte|
+    paquet << [carte, couleur_hash[couleur]]}}
+  #tirage du flop
+  cartes_restantes = 52
+  carte_tiree = rand(cartes_restantes)
+  flop = []
+  (1..3).each {|carte|
+  flop << paquet[carte_tiree]
+  paquet.delete_at(carte_tiree)
+  cartes_restantes -= 1
+  carte_tiree = rand(cartes_restantes)
+  }
+  #tirage joueurs
+  cartes_joueurs = []
+  (0..7).each {|carte| 
+  cartes_joueurs << paquet[carte_tiree]
+  paquet.delete_at(carte_tiree)
+  cartes_restantes -= 1
+  carte_tiree = rand(cartes_restantes)
+  }
+  #resultat_joueurs
+  score_joueur_1 = [0]
+  joueur_1 = flop
+  joueur_1 << cartes_joueurs[0] << cartes_joueurs[1]
+  joueur_1.sort!
+  joueur_1_valeur = []
+  joueur_1_couleur = []
+  
+  (0..4).each {|carte| 
+  joueur_1_valeur <<  joueur_1[carte][0]
+  joueur_1_couleur << joueur_1[carte][1]
+  }
+  
+  (0..4).each {|carte| 
+  joueur_1_valeur.count(joueur_1_valeur[carte]) == 2 ? score_joueur_1 << "Paire de #{joueur_1_valeur[carte]}" : ""
+  joueur_1_valeur.count(joueur_1_valeur[carte]) == 3 ? score_joueur_1 << "Brelan de #{joueur_1_valeur[carte]}" : ""
+  joueur_1_valeur.count(joueur_1_valeur[carte]) == 4 ? score_joueur_1 << "Carre de #{joueur_1_valeur[carte]}" : ""
+  }
+  joueur_1_valeur[0] == (joueur_1_valeur[1] -1) and  joueur_1_valeur[0] == (joueur_1_valeur[2] -2) and  joueur_1_valeur[0] == (joueur_1_valeur[3] -3) and  joueur_1_valeur[0] == (joueur_1_valeur[4] -4) ? score_joueur_1 << "Suite" : "" 
+  
+  (0..4).each {|carte| 
+  joueur_1_couleur.count(joueur_1_couleur[carte]) > 4 ? score_joueur_1 << "Couleur a #{joueur_1_couleur[carte]}" : ""
+  }
+  %>
+	<div class="container">
+		<div class="row">
+			<h2> Joueur 1</h2>
+			<div class="col-md-3 joueur1">
+				<%= image_tag(cartes_joueurs[0].join+".png") %>
+				<%= image_tag(cartes_joueurs[1].join+".png") %>
+			</div>
+			<h2> Joueur 2</h2>
+			<div class="col-md-3 joueur2">
+				<%= image_tag(cartes_joueurs[2].join+".png") %>
+				<%= image_tag(cartes_joueurs[3].join+".png") %>
+			</div>
+			<h2> Joueur 3</h2>
+			<div class="col-md-3 joueur3">
+				<%= image_tag(cartes_joueurs[4].join+".png") %>
+				<%= image_tag(cartes_joueurs[5].join+".png") %>
+			</div>
+			<h2> Joueur 4</h2>
+			<div class="col-md-3 joueur4">
+				<%= image_tag(cartes_joueurs[6].join+".png") %>
+				<%= image_tag(cartes_joueurs[7].join+".png") %>
+			</div>
+		</div>
+		<h2> Table de jeu</h2>
+		<div class="row">
+			<div class="col-md-12 table">
+				<%= image_tag(flop[0].join+".png") %>
+				<%= image_tag(flop[1].join+".png") %>
+				<%= image_tag(flop[2].join+".png") %>
+				<%= image_tag("dos_carte.png") %>
+				<%= image_tag("dos_carte.png") %>
+			</div>
+			<div class="col-md-3 logo">
+				<%= image_tag("jeton_simplon.svg") %>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
