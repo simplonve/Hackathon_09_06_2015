@@ -1,0 +1,17 @@
+level = [
+&quot;WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW&quot;,
+&quot;														  &quot;,
+&quot;WWWWWWWWWWWWWWWWWWWWWWWWWWWW    WWWWWWWWW    WWWW       &quot;,
+&quot;                                                        &quot;,
+&quot;    WWWWW   W   WWWWWWWWWWWWWWWWWWWWWWWWWWWW     WWWWWWW&quot;,
+&quot;                                                        &quot;,
+&quot;WWWWWWWWWWWWWWWWWWWW    W     wWWWWWWWWWWWWWWWWWWWW     &quot;,
+&quot;                                                        &quot;,
+&quot;     WWWWWW    WWWWWWWWWWWWWWWWWWWWWW   WWWWWWWWWWWWWWWW&quot;,
+&quot;                                                        &quot;,
+&quot;WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW    WWWWWWWWW    &quot;,
+&quot;                                                        &quot;,
+&quot;    WWW    WWWWWWWWWWWWWWWWWWWWW       WWWWWWWWWWWWWWWWW&quot;,
+&quot;                                                        &quot;,
+&quot;WWWWWWWWWWWWWWWWWWWW         WWWWWWWWWWWWWWWWWWWWWWWWWWW&quot;,
+]
