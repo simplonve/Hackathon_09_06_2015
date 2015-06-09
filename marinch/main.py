@@ -1,27 +1,12 @@
-#!/usr/bin/env python3
-# -*- coding:utf-8 -*-
+#! /usr/bin/env python
+
+import os
 import random
-import pygame, os
+import pygame
 import pygame.gfxdraw
 from pygame.locals import *
 
-width = 1024
-height = 720
-
-pygame.init()
-image_arriere_plan = pygame.image.load("data/images/accueil/decormaster.png")
-
-pygame.display.set_caption('MarInch')
-
-
-def select_perso():
-    perso = raw_input('choisisez un perso :')
-    if perso == 1: perso = croix
-    if perso == 2: perso = triangle
-    if perso == 3: perso = carre
-    if perso == 4: perso = rond
-    return perso
-
+image_arriere_plan = pygame.image.load("data/images/maps/mapessai.png")
 
 def load_image(name, colorkey=None):
     fullname = os.path.join('data', 'images')
@@ -38,98 +23,153 @@ def load_image(name, colorkey=None):
         image.set_colorkey(colorkey, RLEACCEL)
     return image, image.get_rect()
 
-
-
-class PyManMain:
-    """The Main PyMan Class - This class handles the main 
-    initialization and creating of the Game."""
-    
-    def __init__(self, width=640,height=480):
-        """Initialize"""
-        """Initialize PyGame"""
-        pygame.init()
-        """Set the window Size"""
-        self.width = width
-        self.height = height
-        """Create the Screen"""
-        self.screen = pygame.display.set_mode((self.width
-                                               , self.height), RESIZABLE)
-                                                          
-    def MainLoop(self):
-        """This is the Main Loop of the Game"""
-        
-        """Load All of our Sprites"""
-        self.LoadSprites();
-        """tell pygame to keep sending up keystrokes when they are
-        held down"""
-        pygame.key.set_repeat(500, 30)
-        
-        """Create the fenetre"""
-        self.fenetre = pygame.Surface(self.screen.get_size())
-        self.fenetre = self.fenetre.convert()
-        self.fenetre.fill((0,0,0))
-        
-        while 1:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT: 
-                    sys.exit()
-                elif event.type == KEYDOWN:
-                    if ((event.key == K_RIGHT)
-                    or (event.key == K_LEFT)
-                    or (event.key == K_UP)
-                    or (event.key == K_DOWN)):
-                        self.perso.move(event.key)
-            """Check for collision"""
-            """Do the Drawging"""
-            self.screen.blit(self.fenetre, (0, 0))
-            self.perso_sprites.draw(self.screen)
-            pygame.display.flip()
-                    
-    def LoadSprites(self):
-        """Load the sprites that we need"""
-        self.perso = perso()
-        self.perso_sprites = pygame.sprite.RenderPlain((self.perso))
-
-
-class perso(pygame.sprite.Sprite):
-    """This is our perso that will move around the screen"""
-
+class Player(object):
     def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.image, self.rect = load_image('characteres/trianglemaster.png',-1)
-        """Set the number of Pixels to move each time"""
-        #saut de pixel
-        self.x_dist = 10
-        self.y_dist = 10
+        self.perso, self.rect = load_image('characteres/croixmaster.png',-1)
+        self.rect.x = 20
+        self.rect.y = 10
 
-    def move(self, key):
-        """Move your self in one of the 4 directions according to key"""
-        """Key is the pyGame define for either up,down,left, or right key
-        we will adjust outselfs in that direction"""
-        xMove = 0;
-        yMove = 0;
-        if (key == K_RIGHT):
-            xMove = self.x_dist
-        elif (key == K_LEFT):
-            xMove = -self.x_dist
-        elif (key == K_UP):
-            yMove = -self.y_dist
-        elif (key == K_DOWN):
-            yMove = self.y_dist
-        #self.rect = self.rect.move(xMove,yMove);
-        self.rect.move_ip(xMove,yMove);
+    def move(self, dx, dy):
+        # Move each axis separately. Note that this checks for collisions both times.
+        if dx != 0:
+            self.move_single_axis(dx, 0)
+        if dy != 0:
+            self.move_single_axis(0, dy)
 
-if __name__ == "__main__":
-    MainWindow = PyManMain()
-    MainWindow.MainLoop()
+    def move_single_axis(self, dx, dy):
+        # Move the rect
+        self.rect.x += dx
+        self.rect.y += dy
+
+        # If you collide with a wall, move out based on velocity
+        for wall in walls:
+            if self.rect.colliderect(wall.rect):
+                if dx > 0: # Moving right; Hit the left side of the wall
+                    self.rect.right = wall.rect.left
+                    self.rect.x = 20
+                    self.rect.y = 10
+                if dx < 0: # Moving left; Hit the right side of the wall
+                    self.rect.left = wall.rect.right
+                    self.rect.x = 20
+                    self.rect.y = 10
+                if dy > 0: # Moving down; Hit the top side of the wall
+                    self.rect.bottom = wall.rect.top
+                    self.rect.x = 20
+                    self.rect.y = 10
+                if dy < 0: # Moving up; Hit the bottom side of the wall
+                    self.rect.top = wall.rect.bottom
+                    self.rect.x = 20
+                    self.rect.y = 10
+
+# Nice class to hold a wall rect
+class Wall(object):
+    def __init__(self, pos):
+        walls.append(self)
+        self.rect = pygame.Rect(pos[0], pos[1], 16, 16)
+
+# Initialise pygame
+os.environ["SDL_VIDEO_CENTERED"] = "1"
+pygame.init()
+
+# Set up the display
+pygame.display.set_caption("MarInch")
+screen = pygame.display.set_mode((1024, 720))
+
+clock = pygame.time.Clock()
+walls = [] # List to hold the walls
+player = Player() # Create the player
+
+# Holds the level layout in a list of strings.
+level = [
+"                                                               W",
+"                                                               W",
+"                                                               W",
+"                                                               W",
+"W                                                              W",
+"WWWWWWWWWWWWWWWWWWWWWWWWWWWW      WWWWWWWWW     WWWW       WWWWW",
+"W                                                              W",
+"W                                                              W",
+"W                                                               ",
+"W                                                               ",
+"W                                                               ",
+"W    WWWWW   W   WWWWWWWWWWWWWWWWWWWWWWWWWWWW     WWWWWWWWWWWWWW",
+"W                                                               ",
+"W                                                               ",
+"W                                                               ",
+"W                                                               ",
+"W                                                               ",
+"WWWWWWWWWWWWWWWWWWWW     W     wWWWWWWWWWWWWWWWWWWWW            ",
+"W                                                               ",
+"W                                                               ",
+"W                                                               ",
+"W                                                               ",
+"W                                                               ",
+"W                                                               ",
+"W                                                               ",
+"W     WWWWWW      WWWWWWWWWWWWWWWWWWWWWW   WWWWWWWWWWWWWWWW     ",
+"W                                                               ",
+"W                                                               ",
+"W                                                               ",
+"W                                                               ",
+"W                                                               ",
+"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW       WWWWWWWWW         ",
+"                                                                ",
+"                                                                ",
+"                                                                ",
+"                                                                ",
+"                                                                ",
+"    WWW    WWWWWWWWWWWWWWWWWWWWW          WWWWWWWWWWWWWWWWWWWWWW",
+"                                                                ",
+"                                                                ",
+"                                                                ",
+"                                                                ",
+"                                                                ",
+"                                                                ",
+"WWWWWWWWWWWWWWWWWWWW      E     WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+]
 
 
-fonctionnement = True
+# Parse the level string above. W = wall, E = exit
+x = y = 0
+for row in level:
+    for col in row:
+        if col == "W":
+            Wall((x, y))
+        if col == "E":
+            end_rect = pygame.Rect(x, y, 16, 16)
+        x += 16
+    y += 16
+    x = 0
 
-while fonctionnement:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            fonctionnement = False
-        elif event.type == KEYDOWN:
-            if event.key == K_ESCAPE:
-                fonctionnement = False
+running = True
+while running:
+    clock.tick(60)
+    for e in pygame.event.get():
+        if e.type == pygame.QUIT:
+            running = False
+        if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
+            running = False
+
+    # Move the player if an arrow key is pressed
+    key = pygame.key.get_pressed()
+    if key[pygame.K_LEFT]:
+        player.move(-4, 0)
+    if key[pygame.K_RIGHT]:
+        player.move(4, 0)
+    if key[pygame.K_UP]:
+        player.move(0, -4)
+    if key[pygame.K_DOWN]:
+        player.move(0, 4)
+
+    # Just added this to make it slightly fun ;)
+    if player.rect.colliderect(end_rect):
+        raise SystemExit, "You win!"
+
+    # Draw the scene
+    screen.fill((0, 0, 0))
+    screen.blit(image_arriere_plan, (0, 0))
+    for wall in walls:
+        pygame.draw.rect(screen, (255, 255, 255), wall.rect)
+    pygame.draw.rect(screen, (255, 0, 0), end_rect)
+    screen.blit(player.perso, player.rect)
+    pygame.display.flip()
