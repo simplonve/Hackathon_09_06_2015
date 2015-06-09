@@ -5,23 +5,31 @@ import pygame
 import pygame.gfxdraw
 from pygame.locals import *
 
-largeur = 180
-hauteur = 150
+largeur = 1280
+hauteur = 720
 
 pygame.init()
 
-fenetre = pygame.display.set_mode((taille_pixel*largeur, taille_pixel*hauteur))
+fenetre = pygame.display.set_mode((largeur, hauteur))
 
-image_arriere_plan = pygame.image.load("images/fond_accueil.svg")
+image_arriere_plan = pygame.image.load("images/accueil/decormaster.svg")
 
 background = pygame.Surface(fenetre.get_size())
 background = background.convert()
 background.fill((255, 255, 255))
 
 pygame.display.set_caption('MarInch')
-
-
 pygame.display.flip()
+
+def select_perso():
+    perso = raw_input('choisisez un perso :')
+    if perso == 1: perso = croix
+    if perso == 2: perso = triangle
+    if perso == 3: perso = carre
+    if perso == 4: perso = rond
+    return perso
+
+
 
 fonctionnement = True
 
