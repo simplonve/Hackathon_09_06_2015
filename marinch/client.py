@@ -90,6 +90,11 @@ def main(conn):
             walls.append(self)
             self.rect = pygame.Rect(pos[0], pos[1], 16, 16)
 
+    class Caisse(object):
+        def __init__(self, pos):
+            walls.append(self)
+            self.rect = pygame.Rect(pos[0], pos[1], 16, 16)
+
     # Initialise pygame
     os.environ["SDL_VIDEO_CENTERED"] = "1"
     pygame.init()
@@ -111,7 +116,7 @@ def main(conn):
     "                       WWW       WWW         WWW           WWW W",
     "                       WWW     WWWWW       WWWWW           WWWWW",
     "                       WWW     WWWWW       WWWWW           WWWWW",
-    "W           W                                                  W",
+    "W           C                                                  W",
     "W                                                              W",
     "W                                                              W",
     "W                    WW    WW                                  W",
@@ -161,6 +166,8 @@ def main(conn):
                 Wall((x, y))
             if col == "E":
                 end_rect = pygame.Rect(x, y, 16, 16)
+            if col == "C":
+                Caisse((x, y))
             x += 16
         y += 16
         x = 0
@@ -196,6 +203,7 @@ def main(conn):
         screen.fill((0, 0, 0))
         screen.blit(image_arriere_plan, (0, 0))
         for wall in walls:
+            print(wall)
             pygame.draw.rect(screen, (255, 255, 255), wall.rect)
         pygame.draw.rect(screen, (255, 0, 0), end_rect)
         screen.blit(player.perso, player.rect)
