@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
     MediaPlayer mp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +22,9 @@ public class MainActivity extends Activity {
         mp.setLooping(true);
         mp.start();
 
-        final ImageView animRotate = (ImageView) findViewById(R.id.imageRotate);
-        animRotate.startAnimation(animRotate);
+        ImageView imageView = (ImageView) findViewById(R.id.imageRotate);
+        Animation animRotate = AnimationUtils.loadAnimation(this, R.anim.rotate);
+        imageView.startAnimation(animRotate);
     }
 
 }
