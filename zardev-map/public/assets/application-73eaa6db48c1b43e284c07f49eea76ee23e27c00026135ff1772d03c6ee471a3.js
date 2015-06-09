@@ -10,11 +10,5 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= depend_on_asset "layers.png"
-//= depend_on_asset "layers-2x.png"
-= require leaflet.geosearch
-= require leaflet.geosearch.provider.openstreetmap
-= require leaflet.geosearch.provider.xyz
-= require leaflet
 = require_tree .
 
