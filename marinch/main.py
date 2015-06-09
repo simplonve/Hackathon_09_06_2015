@@ -1,12 +1,12 @@
-#! /usr/bin/env python
-
+#! /usr/bin/python
+# -*- coding:utf-8 -*-
 import os
-import random
 import pygame
 import pygame.gfxdraw
 from pygame.locals import *
 
 image_arriere_plan = pygame.image.load("data/images/maps/mapessai.png")
+caisse_vodka = pygame.image.load("data/images/objects/vodka.png")
 
 def load_image(name, colorkey=None):
     fullname = os.path.join('data', 'images')
@@ -23,9 +23,23 @@ def load_image(name, colorkey=None):
         image.set_colorkey(colorkey, RLEACCEL)
     return image, image.get_rect()
 
+def select_perso():
+    path_image_perso = ''
+    perso = input('choisisez un perso :')
+    if perso == 1:
+        path_image_perso = 'characteres/carre.png'
+    elif perso == 2:
+        path_image_perso = 'characteres/cercle.png'
+    elif perso == 3:
+        path_image_perso = 'characteres/triangle.png'
+    elif perso == 4:
+        path_image_perso = 'characteres/croix.png'
+    return path_image_perso
+
 class Player(object):
     def __init__(self):
-        self.perso, self.rect = load_image('characteres/croixmaster.png',-1)
+        path_image_perso = select_perso()
+        self.perso, self.rect = load_image(path_image_perso,-1)
         self.rect.x = 20
         self.rect.y = 10
 
@@ -67,6 +81,11 @@ class Wall(object):
         walls.append(self)
         self.rect = pygame.Rect(pos[0], pos[1], 16, 16)
 
+class Caisse(object):
+    def __init__(self, pos):
+        walls.append(self)
+        self.rect = pygame.Rect(pos[0], pos[1], 16, 16)
+
 # Initialise pygame
 os.environ["SDL_VIDEO_CENTERED"] = "1"
 pygame.init()
@@ -81,52 +100,53 @@ player = Player() # Create the player
 
 # Holds the level layout in a list of strings.
 level = [
-"                                                               W",
-"                                                               W",
-"                                                               W",
-"                                                               W",
-"W                                                              W",
-"WWWWWWWWWWWWWWWWWWWWWWWWWWWW      WWWWWWWWW     WWWW       WWWWW",
 "W                                                              W",
 "W                                                              W",
-"W                                                               ",
-"W                                                               ",
-"W                                                               ",
-"W    WWWWW   W   WWWWWWWWWWWWWWWWWWWWWWWWWWWW     WWWWWWWWWWWWWW",
-"W                                                               ",
-"W                                                               ",
-"W                                                               ",
-"W                                                               ",
-"W                                                               ",
-"WWWWWWWWWWWWWWWWWWWW     W     wWWWWWWWWWWWWWWWWWWWW            ",
-"W                                                               ",
-"W                                                               ",
-"W                                                               ",
-"W                                                               ",
-"W                                                               ",
-"W                                                               ",
-"W                                                               ",
-"W     WWWWWW      WWWWWWWWWWWWWWWWWWWWWW   WWWWWWWWWWWWWWWW     ",
-"W                                                               ",
-"W                                                               ",
-"W                                                               ",
-"W                                                               ",
-"W                                                               ",
-"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW       WWWWWWWWW         ",
-"                                                                ",
-"                                                                ",
-"                                                                ",
-"                                                                ",
-"                                                                ",
-"    WWW    WWWWWWWWWWWWWWWWWWWWW          WWWWWWWWWWWWWWWWWWWWWW",
-"                                                                ",
-"                                                                ",
-"                                                                ",
-"                                                                ",
-"                                                                ",
-"                                                                ",
+"W                                                              W",
+"W                                                              W",
+"W                                                              W",
+"W                                                              W",
+"W                                                              W",
+"W                                                              W",
+"W                                                              W",
+"W                                                              W",
+"W                    WW    WW                                  W",
+"W                    WW    WW WW     WW             WW         W",
+"W                    WW    WW WW     WW             WW         W",
+"W                                                              W",
+"W                                                              W",
+"W                                      WW                      W",
+"W                                      WW                      W",
+"WWWWWWWWWWWWWWWWWWWW     W     wWWWWWWWWWWWWWWWWWWWWWWW        W",
+"W                                   WWW                        W",
+"W                                   WWW                        W",
+"W                                                              W",
+"W                                                              W",
+"W                                                              W",
+"W                                                              W",
+"W       WWW             WWW                             WWW    W",
+"W     WWWWW       WW    WWW   WW                  WWW   WWW    W",
+"W     WWWWW       WW    WWW   WW                  WWW   WWW    W",
+"W                                                              W",
+"W                                                              W",
+"W          WW             WW                                   W",
+"W          WW             WW                                   W",
+"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW      WWWWWWWWWWWWWWWW     W",
+"W                                                              W",
+"W                                                              W",
+"W                                                              W",
+"W                   WW                                         W",
+"W                   WW                                         W",
+"W   WWW    WW    WWW         WWW    WW    WWW   WW   WWW   WW  W",
+"W   WWW    WW    WWW         WWW    WW    WWW   WW   WWW   WW  W",
+"W   WWW          WWW         WWW          WWW        WWW       W",
+"W                                                              W",
+"W                                                              W",
+"W                                                              W",
+"W                                                              W",
 "WWWWWWWWWWWWWWWWWWWW      E     WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
 ]
+
 
 
 # Parse the level string above. W = wall, E = exit
@@ -146,9 +166,11 @@ while running:
     clock.tick(60)
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
-            running = False
+            connexion.send('FIN')
+            quit()
         if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
-            running = False
+            connexion.send('FIN')
+            quit()
 
     # Move the player if an arrow key is pressed
     key = pygame.key.get_pressed()
@@ -163,13 +185,14 @@ while running:
 
     # Just added this to make it slightly fun ;)
     if player.rect.colliderect(end_rect):
-        raise SystemExit, "You win!"
+        connexion.send('FIN')
+        quit()
 
     # Draw the scene
     screen.fill((0, 0, 0))
     screen.blit(image_arriere_plan, (0, 0))
     for wall in walls:
-        pygame.draw.rect(screen, (255, 255, 255), wall.rect)
+        pygame.draw.rect(screen, (255, 255, 0), wall.rect)
     pygame.draw.rect(screen, (255, 0, 0), end_rect)
     screen.blit(player.perso, player.rect)
     pygame.display.flip()
