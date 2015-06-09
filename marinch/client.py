@@ -37,6 +37,7 @@ def main(conn):
             path_image_perso = 'characteres/trianglemaster.png'
         elif perso == 4:
             path_image_perso = 'characteres/croixmaster.png'
+        connexion.send(path_image_perso)
         return path_image_perso
 
     class Player(object):
@@ -102,48 +103,49 @@ def main(conn):
     "                                                               W",
     "                                                               W",
     "                                                               W",
+    "                       WWW       WWW         WWW           WWW W",
+    "                       WWW     WWWWW       WWWWW           WWWWW",
+    "                       WWW     WWWWW       WWWWW           WWWWW",
     "W                                                              W",
-    "WWWWWWWWWWWWWWWWWWWWWWWWWWWW      WWWWWWWWW     WWWW       WWWWW",
     "W                                                              W",
     "W                                                              W",
-    "W                                                               ",
-    "W                                                               ",
-    "W                                                               ",
-    "W    WWWWW   W   WWWWWWWWWWWWWWWWWWWWWWWWWWWW     WWWWWWWWWWWWWW",
-    "W                                                               ",
-    "W                                                               ",
-    "W                                                               ",
-    "W                                                               ",
-    "W                                                               ",
-    "WWWWWWWWWWWWWWWWWWWW     W     wWWWWWWWWWWWWWWWWWWWW            ",
-    "W                                                               ",
-    "W                                                               ",
-    "W                                                               ",
-    "W                                                               ",
-    "W                                                               ",
-    "W                                                               ",
-    "W                                                               ",
-    "W     WWWWWW      WWWWWWWWWWWWWWWWWWWWWW   WWWWWWWWWWWWWWWW     ",
-    "W                                                               ",
-    "W                                                               ",
-    "W                                                               ",
-    "W                                                               ",
-    "W                                                               ",
-    "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW       WWWWWWWWW         ",
-    "                                                                ",
-    "                                                                ",
-    "                                                                ",
-    "                                                                ",
-    "                                                                ",
-    "    WWW    WWWWWWWWWWWWWWWWWWWWW          WWWWWWWWWWWWWWWWWWWWWW",
-    "                                                                ",
-    "                                                                ",
-    "                                                                ",
-    "                                                                ",
-    "                                                                ",
-    "                                                                ",
+    "W                    WW    WW                                  W",
+    "W                    WW    WW WW     WW             WW         W",
+    "W                    WW    WW WW     WW             WW         W",
+    "W                                                              W",
+    "W                                                              W",
+    "W                                      WW                      W",
+    "W                                      WW                      W",
+    "WWWWWWWWWWWWWWWWWWWW     W     wWWWWWWWWWWWWWWWWWWWWWWW        W",
+    "W                                   WWW                        W",
+    "W                                   WWW                        W",
+    "W                                                              W",
+    "W                                                              W",
+    "W                                                              W",
+    "W                                                              W",
+    "W       WWW             WWW                             WWW    W",
+    "W     WWWWW       WW    WWW   WW                  WWW   WWW    W",
+    "W     WWWWW       WW    WWW   WW                  WWW   WWW    W",
+    "W                                                              W",
+    "W                                                              W",
+    "W          WW             ww                                   W",
+    "W          WW             WW                                   W",
+    "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW      WWWWWWWWWWWWWWWW     W",
+    "W                                                              W",
+    "W                                                              W",
+    "W                                                              W",
+    "W                   WW                                         W",
+    "W                   WW                                         W",
+    "W   WWW    WW    WWW         WWW    WW    WWW   WW   WWW   WW  W",
+    "W   WWW    WW    WWW         WWW    WW    WWW   WW   WWW   WW  W",
+    "W   WWW          WWW         WWW          WWW        WWW       W",
+    "W                                                              W",
+    "W                                                              W",
+    "W                                                              W",
+    "W                                                              W",
     "WWWWWWWWWWWWWWWWWWWW      E     WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
     ]
+
 
 
     # Parse the level string above. W = wall, E = exit
@@ -182,7 +184,8 @@ def main(conn):
 
         # Just added this to make it slightly fun ;)
         if player.rect.colliderect(end_rect):
-            raise SystemExit, "You win!"
+            connexion.send('FIN')
+            quit()
 
         # Draw the scene
         screen.fill((0, 0, 0))
