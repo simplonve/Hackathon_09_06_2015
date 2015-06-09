@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <title>ZardevMap</title>
+  <!-- <!-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %> --> <!-- --> 
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="bootstrap.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container-fluid">
+<h1>La carte des ZAR'DEV<h1>
+	<div class="row">
+		<div class="img"> <img src="images/dessinlogo.svg"/>
+		</div>
+	</div>
+
+	<div class="row">	
+		<div class="col-md-4">
+			<ul class="liste"><h2>SimplonVE</h2>
+				<li>Poleyrieux accueille 20 simploniens pour sa première promo.</li>
+				<li>Tous ont un parcours et un profil différent.</li>
+				<li>Cette carte permet de situer chacun d'eux.</li>
+			</ul>
+			<img src="images/photogp.svg"/>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-2">
+						<p>Laydi</p>
+						<p>Stéphane</p>
+						<p>Maud</p>
+						<p>Marie</p>
+						<p>Raphael</p>
+						<p>Sandrine</p>
+						<p>Rodolphe</p>
+						<p>Xavier</p>
+						<p>Guy</p>
+						<p>Daniel</p>
+					</div>
+
+					<div class="col-md-2">
+						<p>David</p>
+						<p>Nicolas</p>
+						<p>Pierre</p>
+						<p>Rémi</p>
+						<p>Sophie</p>
+						<p>Thibault</p>
+						<p>Ethan</p>
+						<p>Romain</p>
+						<p>Mathieu</p>
+						<p>Paul</p>
+				</div>
+			</div>	
+		</div>
+	</div>
+			<div class="col-md-8">
+				<%= yield %>
+			</div>
+	</div>
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<hr>
+<footer class="footer">
+	<div class="container">
+	<p1>Pour plus d'informations, rendez-vous à</p1>
+	<a href="http://www.simplon.co/simplon-ve-en-ardeche">SimplonVE</a>
+	</div>
+</footer>
+</body>
+</html>
