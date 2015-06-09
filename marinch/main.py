@@ -6,7 +6,7 @@ import pygame.gfxdraw
 from pygame.locals import *
 
 pygame.init()
-image_arriere_plan = pygame.image.load("data/images/accueil/decormaster.png")
+image_arriere_plan = pygame.image.load("data/images/accueil/accueilmaster.png")
 
 pygame.display.set_caption('MarInch')
 
@@ -32,8 +32,6 @@ def load_image(name, colorkey=None):
             colorkey = image.get_at((0,0))
         image.set_colorkey(colorkey, RLEACCEL)
     return image, image.get_rect()
-
-
 
 class main:
     """The Main PyMan Class - This class handles the main 
@@ -85,7 +83,6 @@ class main:
         self.perso = perso()
         self.perso_sprites = pygame.sprite.RenderPlain((self.perso))
 
-
 class perso(pygame.sprite.Sprite):
     """This is our perso that will move around the screen"""
 
@@ -119,7 +116,6 @@ if __name__ == "__main__":
     MainWindow = main()
     MainWindow.MainLoop()
 
-
 fonctionnement = True
 
 while fonctionnement:
@@ -129,3 +125,5 @@ while fonctionnement:
         elif event.type == KEYDOWN:
             if event.key == K_ESCAPE:
                 fonctionnement = False
+
+
