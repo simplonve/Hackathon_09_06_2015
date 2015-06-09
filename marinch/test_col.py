@@ -23,27 +23,14 @@ def load_image(name, colorkey=None):
         image.set_colorkey(colorkey, RLEACCEL)
     return image, image.get_rect()
 
-def select_perso():
-    path_image_perso = ''
-    perso = input('choisisez un perso :')
-    if perso == 1:
-        path_image_perso = 'characteres/carremaster.png'
-    elif perso == 2:
-        path_image_perso = 'characteres/cerclemasterok.png'
-    elif perso == 3:
-        path_image_perso = 'characteres/trianglemaster.png'
-    elif perso == 4:
-        path_image_perso = 'characteres/croixmaster.png'
-    return path_image_perso
-
+# Class for the orange dude
 class Player(object):
+
     def __init__(self):
-        path_image_perso = select_perso()
-        self.perso, self.rect = load_image(path_image_perso,-1)
-        self.rect.x = 20
-        self.rect.y = 10
+        self.perso, self.rect = load_image('characteres/croixmaster.png',-1)
 
     def move(self, dx, dy):
+
         # Move each axis separately. Note that this checks for collisions both times.
         if dx != 0:
             self.move_single_axis(dx, 0)
@@ -51,6 +38,7 @@ class Player(object):
             self.move_single_axis(0, dy)
 
     def move_single_axis(self, dx, dy):
+
         # Move the rect
         self.rect.x += dx
         self.rect.y += dy
@@ -60,23 +48,16 @@ class Player(object):
             if self.rect.colliderect(wall.rect):
                 if dx > 0: # Moving right; Hit the left side of the wall
                     self.rect.right = wall.rect.left
-                    self.rect.x = 20
-                    self.rect.y = 10
                 if dx < 0: # Moving left; Hit the right side of the wall
                     self.rect.left = wall.rect.right
-                    self.rect.x = 20
-                    self.rect.y = 10
                 if dy > 0: # Moving down; Hit the top side of the wall
                     self.rect.bottom = wall.rect.top
-                    self.rect.x = 20
-                    self.rect.y = 10
                 if dy < 0: # Moving up; Hit the bottom side of the wall
                     self.rect.top = wall.rect.bottom
-                    self.rect.x = 20
-                    self.rect.y = 10
 
 # Nice class to hold a wall rect
 class Wall(object):
+
     def __init__(self, pos):
         walls.append(self)
         self.rect = pygame.Rect(pos[0], pos[1], 16, 16)
@@ -95,19 +76,20 @@ player = Player() # Create the player
 
 # Holds the level layout in a list of strings.
 level = [
+
 "                                                               W",
 "                                                               W",
 "                                                               W",
 "                                                               W",
 "                       WWW       WWW         WWW           WWW W",
-"WW   WW     WW   WW    WWW     WWWWW       WWWWW           WWWWW",
-"WW   WW     WW   WW    WWW     WWWWW       WWWWW           WWWWW",
+"                       WWW     WWWWW       WWWWW           WWWWW",
+"                       WWW     WWWWW       WWWWW           WWWWW",
 "W                                                              W",
 "W                                                              W",
 "W                                                              W",
-"W    WW              WW    WW                                  W",
-"W    WW      WW      WW    WW WW     WW             WW         W",
-"W    WW      WW      WW    WW WW     WW             WW         W",
+"W                    WW    WW                                  W",
+"W                    WW    WW WW     WW             WW         W",
+"W                    WW    WW WW     WW             WW         W",
 "W                                                              W",
 "W                                                              W",
 "W                                      WW                      W",
@@ -157,7 +139,9 @@ for row in level:
 
 running = True
 while running:
+
     clock.tick(60)
+
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
             running = False
