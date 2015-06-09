@@ -6,10 +6,8 @@ import pygame.gfxdraw
 from pygame.locals import *
 
 image_arriere_plan = pygame.image.load("data/images/maps/mapessai.png")
-image_gagner = pygame.image.load("data/images/objects/dessin.png")
 image_accueil = pygame.image.load("data/images/accueil/accueilmaster.png")
-image_fin = pygame.image.load("data/images/accueil/accueilmaster.png")
-
+image_fin = pygame.image.load("data/images/accueil/gg.png")
 
 def load_image(name, colorkey=None):
     fullname = os.path.join('data', 'images')
@@ -29,32 +27,23 @@ def load_image(name, colorkey=None):
 def select_perso():
     path_image_perso = ''
     perso = input('choisisez un perso :')
-    if perso == 1:
-        print('carre')
-        path_image_perso = 'characteres/carre.png'
-    elif perso == 2:
-        print('cercle')
-        path_image_perso = 'characteres/cercle.png'
-    elif perso == 3:
-        print('triangle')
-        path_image_perso = 'characteres/triangle.png'
-    elif perso == 4:
-        print('croix')
-        path_image_perso = 'characteres/croix.png'
+    if perso == 1:     path_image_perso = 'characteres/carre.png'
+    elif perso == 2:   path_image_perso = 'characteres/cercle.png'
+    elif perso == 3:   path_image_perso = 'characteres/triangle.png'
+    elif perso == 4:   path_image_perso = 'characteres/croix.png'
     return path_image_perso
 
 def fin():
-
     screen.blit(image_fin, (0, 0))
     pygame.display.flip()
-    pygame.time.wait(500)
-
+    pygame.time.wait(1000)
 
 def accueil():
     ##############################################
     'boucle infinie de l\'accueil'
     ##############################################
     accueil = True
+    screen.blit(image_accueil, (0, 0))
 
     demarrer_bouton = pygame.draw.rect(screen, [25, 25, 100], [screen.get_width()/7.2, screen.get_width()/3.1, 240, 55])
     croix_bouton = pygame.draw.rect(screen, [25, 25, 100], [screen.get_width()/4, screen.get_width()/5, 100, 100])
@@ -62,7 +51,6 @@ def accueil():
     cercle_bouton = pygame.draw.rect(screen, [100, 25, 25], [screen.get_width()/23, screen.get_width()/5, 100, 100])
     carre_bouton = pygame.draw.rect(screen, [25, 100, 100], [screen.get_width()/7.2, screen.get_width()/5, 100, 100])
 
-    screen.blit(image_accueil, (0, 0))
     pygame.display.flip()
     path_image_perso = ''
     while accueil:
@@ -73,21 +61,14 @@ def accueil():
         cercle_on = cercle_bouton.collidepoint(mouse_xy)
         carre_on = carre_bouton.collidepoint(mouse_xy)
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                quit()
+            if event.type == pygame.QUIT:  quit()
             elif event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
-                    quit()
-            elif event.type == MOUSEBUTTONDOWN and demarrer_on:
-                accueil = False
-            elif event.type == MOUSEBUTTONDOWN and croix_on:
-                path_image_perso = 'characteres/croix.png'
-            elif event.type == MOUSEBUTTONDOWN and triangle_on:
-                path_image_perso = 'characteres/triangle.png'
-            elif event.type == MOUSEBUTTONDOWN and cercle_on:
-                path_image_perso = 'characteres/cercle.png'
-            elif event.type == MOUSEBUTTONDOWN and carre_on:
-                path_image_perso = 'characteres/carre.png'
+                if event.key == K_ESCAPE:  quit()
+            elif event.type == MOUSEBUTTONDOWN and demarrer_on:    accueil = False
+            elif event.type == MOUSEBUTTONDOWN and croix_on:       path_image_perso = 'characteres/croix.png'
+            elif event.type == MOUSEBUTTONDOWN and triangle_on:    path_image_perso = 'characteres/triangle.png'
+            elif event.type == MOUSEBUTTONDOWN and cercle_on:      path_image_perso = 'characteres/cercle.png'
+            elif event.type == MOUSEBUTTONDOWN and carre_on:       path_image_perso = 'characteres/carre.png'
     return path_image_perso
 
 class Player(object):
@@ -98,10 +79,8 @@ class Player(object):
 
     def move(self, dx, dy):
         # Move each axis separately. Note that this checks for collisions both times.
-        if dx != 0:
-            self.move_single_axis(dx, 0)
-        if dy != 0:
-            self.move_single_axis(0, dy)
+        if dx != 0:self.move_single_axis(dx, 0)
+        if dy != 0:self.move_single_axis(0, dy)
 
     def move_single_axis(self, dx, dy):
         # Move the rect
@@ -195,16 +174,12 @@ level = [
 "WWWWWWWWWWWWWWWWWWWW      E     WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
 ]
 
-
-
 # Parse the level string above. W = wall, E = exit
 x = y = 0
 for row in level:
     for col in row:
-        if col == "W":
-            Wall((x, y))
-        if col == "E":
-            end_rect = pygame.Rect(x, y, 16, 16)
+        if col == "W":Wall((x, y))
+        if col == "E":end_rect = pygame.Rect(x, y, 16, 16)
         x += 16
     y += 16
     x = 0
@@ -213,31 +188,25 @@ running = True
 while running:
     clock.tick(60)
     for e in pygame.event.get():
-        if e.type == pygame.QUIT:
-            quit()
-        if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
-            quit()
+        if e.type == pygame.QUIT:quit()
+        if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:quit()
 
     # Move the player if an arrow key is pressed
     key = pygame.key.get_pressed()
-    if key[pygame.K_LEFT]:
-        player.move(-4, 0)
-    if key[pygame.K_RIGHT]:
-        player.move(4, 0)
-    if key[pygame.K_UP]:
-        player.move(0, -4)
-    if key[pygame.K_DOWN]:
-        player.move(0, 4)
+    if key[pygame.K_LEFT]:  player.move(-4, 0)
+    if key[pygame.K_RIGHT]: player.move(4, 0)
+    if key[pygame.K_UP]:    player.move(0, -4)
+    if key[pygame.K_DOWN]:  player.move(0, 4)
 
     # Just added this to make it slightly fun ;)
     if player.rect.colliderect(end_rect):
-        quit()
+        running = False
+        fin()
 
     # Draw the scene
     screen.fill((0, 0, 0))
     screen.blit(image_arriere_plan, (0, 0))
-    for wall in walls:
-        pygame.draw.rect(screen, (170, 170, 100), wall.rect)
+    for wall in walls: pygame.draw.rect(screen, (170, 170, 100), wall.rect)
     pygame.draw.rect(screen, (255, 0, 0), end_rect)
     screen.blit(player.perso, player.rect)
     pygame.display.flip()
