@@ -16,3 +16,10 @@
  *= require leaflet.geosearch
 = require leaflet
 body { padding-top: 100px; }
+#cloudmade-oms-map {
+	border-style: groove;
+	border-color: aqua;
+	border-radius: 5px 5px;
+	height: 60%;
+	width: 50%;
+}

@@ -1,30 +1,31 @@
-<script type="text/javascript" charset="utf-8">
-// init tile service with MapQuest
-var tilesService = new L.TileLayer('http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
-    attribution: '\
-        Data, imagery and map information provided by <a href="http://open.mapquest.co.uk" target="_blank">MapQuest</a>,\
-        <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> and contributors,\
-        <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC-BY-SA</a>\
-    ',
-    subdomains : ['otile1','otile2','otile3','otile4'],
-    maxZoom: 18
-});
+<div id="cloudmade-oms-map" style="height: 700px"></div>
+          <script type="text/javascript" charset="utf-8">
+          // init tile service with MapQuest
+          var tilesService = new L.TileLayer('http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
+              attribution: '\
+                  Data, imagery and map information provided by <a href="http://open.mapquest.co.uk" target="_blank">MapQuest</a>,\
+                  <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> and contributors,\
+                  <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC-BY-SA</a>\
+              ',
+              subdomains : ['otile1','otile2','otile3','otile4'],
+              //maxZoom: 18
+          });
 
-// init map
-var map = new L.Map('cloudmade-oms-map',
-    {
-        center: [44.912404,4.43767360689655],
-        zoom: 15,
-        scrollWheelZoom: false
-    }
-).addLayer(tilesService);
+          // init map
+          var map = new L.Map('cloudmade-oms-map',
+              {
+                  center: [44.912404,4.43767360689655],
+                  zoom: 12,
+                  scrollWheelZoom: false
+              }
+          ).addLayer(tilesService);
 
-// Add circle
-var circle = L.circle([44.912404,4.43767360689655], 50,{
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(map);
-// Add popup to marquer
-circle.bindPopup("<b>SimplonVE !</b>").openPopup();
-</script>
+          // Add circle
+          var circle = L.circle([44.912404,4.43767360689655], 50,{
+              color: 'red',
+              fillColor: '#f03',
+              fillOpacity: 0.5
+          }).addTo(map);
+          // Add popup to marquer
+          circle.bindPopup("<b>SimplonVE !</b>").openPopup();
+       </script>
